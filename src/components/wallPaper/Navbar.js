@@ -158,6 +158,15 @@ export default function Navbar() {
                   >
                     My account
                   </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to="/Signout"
+                    primarytext="Logout"
+                    style={{ color: "blue" }}
+                    onClick={handleClose}
+                  >
+                    Logout
+                  </MenuItem>
                 </Menu>
               </div>
             )}
