@@ -48,7 +48,7 @@ export default function Sidebar({ state, setState, toggleDrawer, find }) {
           </Drawer>
         </React.Fragment>
       ))}
-      <Card categ={categ} find={find}/>
+      <Card categ={categ} find={find} />
     </div>
   );
 }

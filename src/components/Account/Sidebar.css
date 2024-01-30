@@ -14,7 +14,7 @@ body {
 }
 
 .SidebarList {
-  height: auto;
+  height: 1000px;
   padding: 0;
   width: 100%;
 }

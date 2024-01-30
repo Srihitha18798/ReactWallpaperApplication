@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -17,6 +17,7 @@ import Sidebar from "./Sidebar";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -64,6 +65,8 @@ export default function Navbar() {
     left: false,
   });
 
+  const navigate = useNavigate();
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -95,6 +98,10 @@ export default function Navbar() {
     setFindText(e.target.value);
   };
 
+  const favorites = () => {
+    navigate("/Favorites");
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -122,6 +129,9 @@ export default function Navbar() {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
+            <IconButton style={{ color: "white" }} onClick={favorites}>
+              <FavoriteBorderIcon />
+            </IconButton>
             {auth && (
               <div>
                 <IconButton

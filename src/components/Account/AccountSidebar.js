@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../Account/Sidebar.css";
 import { SidebarData } from "./SidebarData";
 
-const AccountSidebar = ({user}) => {
+const AccountSidebar = ({ user }) => {
   const navigate = useNavigate();
 
   return (
@@ -17,7 +17,7 @@ const AccountSidebar = ({user}) => {
               className="row"
               onClick={() => {
                 //window.location.pathname = data.link;
-                navigate(data.link,{state:{user}})
+                navigate(data.link, { state: { user } });
               }}
             >
               <div id="icon">{data.icon}</div>

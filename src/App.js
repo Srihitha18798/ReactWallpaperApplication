@@ -10,6 +10,7 @@ import DownloadedImages from "./components/Account/DownloadedImages";
 import Signout from "./components/Account/Signout";
 import DeleteAccount from "./components/Account/DeleteAccount";
 import AccountSidebar from "./components/Account/AccountSidebar";
+import Favorites from "./components/wallPaper/Favorites";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             path="/DeleteAccount"
             element={<DeleteAccount />}
           ></Route>
+          <Route exact path="/Favorites" element={<Favorites />}></Route>
         </Routes>
       </Router>
     </div>

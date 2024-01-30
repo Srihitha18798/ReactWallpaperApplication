@@ -82,6 +82,7 @@ const SignUp = () => {
       JSON.stringify({
         name: data.username,
         password: data.password,
+        images: [],
       })
     );
     console.log(JSON.parse(localStorage.getItem(data.username)));

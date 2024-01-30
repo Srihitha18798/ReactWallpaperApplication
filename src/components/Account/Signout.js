@@ -7,10 +7,9 @@ const Signout = () => {
   const navigate = useNavigate();
   const { handleLogout } = useContext(UserContext);
 
-
   const areUSureDelete = (choose) => {
     if (choose) {
-      handleLogout()
+      handleLogout();
       navigate("/Login");
     } else {
       navigate("/MyAccount");

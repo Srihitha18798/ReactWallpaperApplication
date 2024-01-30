@@ -17,6 +17,7 @@ const ForgotPassword = (props) => {
     {
       username: "",
       password: "",
+      images: [],
     },
   ]);
   const location = useLocation();
@@ -52,9 +53,12 @@ const ForgotPassword = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setUpdatedData((updatedData.username = user), (updatedData.password = pwd));
-
     const userData = JSON.parse(localStorage.getItem(user));
+    setUpdatedData(
+      (updatedData.username = user),
+      (updatedData.password = pwd),
+      (updatedData.images = userData.images)
+    );
 
     if (userData) {
       const profile = {
@@ -67,6 +71,7 @@ const ForgotPassword = (props) => {
         JSON.stringify({
           name: profile.username,
           password: profile.password,
+          images: profile.images,
         })
       );
 

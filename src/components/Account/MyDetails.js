@@ -17,8 +17,9 @@ const MyDetails = () => {
   const { state } = useLocation();
   const { user } = state;
 
+  const defaultPassword = "**********";
   const [username, setUsername] = useState(user);
-  const [password, setPassword] = useState("*************");
+  const [password, setPassword] = useState(defaultPassword);
   const [validPwd, setValidPwd] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const errRef = useRef();
@@ -51,22 +52,31 @@ const MyDetails = () => {
   const handleSave = () => {
     handleLogin(username);
 
+    const userData = JSON.parse(localStorage.getItem(username));
+
     const updatedData = {
       username: username,
       password: password,
     };
-    console.log(updatedData);
-    const userData = JSON.parse(localStorage.getItem(username));
+
     if (userData) {
       const profile = {
         userData,
         ...updatedData,
+        images: userData.images,
       };
+
+      /*userData.name = profile.username;
+      userData.password = profile.password;
+      userData.images = profile.images;
+      const updatedObject = JSON.stringify(userData);
+      localStorage.setItem(username, updatedObject);*/
       localStorage.setItem(
         username,
         JSON.stringify({
           name: profile.username,
           password: profile.password,
+          images: profile.images,
         })
       );
     } else {
@@ -76,6 +86,7 @@ const MyDetails = () => {
         JSON.stringify({
           name: updatedData.username,
           password: updatedData.password,
+          images: updatedData.images,
         })
       );
     }
@@ -163,7 +174,7 @@ const MyDetails = () => {
               </div>
               <div>
                 <strong>Password:</strong>
-                <span>{password}</span>
+                <span>{defaultPassword}</span>
               </div>
             </>
           )}

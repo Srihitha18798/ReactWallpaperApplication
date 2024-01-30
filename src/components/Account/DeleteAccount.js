@@ -55,7 +55,7 @@ const DeleteAccount = () => {
 
   return (
     <>
-    <AccountHeader/>
+      <AccountHeader />
       <div className="login">
         <section>
           <p

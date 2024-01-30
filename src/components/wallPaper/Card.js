@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 //import { makeStyles } from '@material-ui/core/styles';
 import { ImageList } from "@mui/material";
 import { ImageListItem } from "@mui/material";
@@ -12,6 +12,9 @@ import { DialogContent } from "@mui/material";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { saveAs } from "file-saver";
+import { UserContext } from "../UserContext";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 //import TileData from './TileData';
 
 /*
@@ -41,11 +44,14 @@ const apiUrl = "https://pixabay.com/api";
 const apiKey = "36640679-dc2aaae3a351ed4be072add95";
 
 const Card = ({ categ, find }) => {
+  const { user } = useContext(UserContext);
+
   const [images, setImages] = useState([]);
 
   const [open, setOpen] = useState(false);
   const [currentImg, setCurrentImg] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [favorites, setFavorites] = useState({});
 
   useEffect(() => {
     axios
@@ -76,6 +82,27 @@ const Card = ({ categ, find }) => {
   }, [find]);*/
 
   const downloadImg = (url) => {
+    /*downloadImages.push(url);
+    const userData = localStorage.getItem(user);
+    let parsedObject = userData ? JSON.parse(userData) : {};
+    parsedObject.images=downloadImages
+    const updatedObject=JSON.stringify(parsedObject)
+    localStorage.setItem(user, updatedObject);*/
+
+    const userData = JSON.parse(localStorage.getItem(user));
+
+    const downloadImages = userData.images;
+    downloadImages.push(url);
+
+    localStorage.setItem(
+      user,
+      JSON.stringify({
+        name: userData.name,
+        password: userData.password,
+        images: downloadImages,
+      })
+    );
+
     axios
       .get(url, { responseType: "blob" })
       .then((response) => {
@@ -93,6 +120,15 @@ const Card = ({ categ, find }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const toggleAction = (largeImageURL) => {
+    console.log(largeImageURL);
+    console.log(favorites)
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [largeImageURL]:!prevFavorites[largeImageURL]
+    }))
   };
 
   if (isLoading) {
@@ -123,6 +159,37 @@ const Card = ({ categ, find }) => {
         {images?.map((img) => (
           <ImageListItem key={img.id}>
             <img src={img.largeImageURL} alt={img.tags} />
+            {favorites[img.largeImageURL] ? (
+              <IconButton
+                style={{
+                  color: "white",
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  zIndex: "1",
+                }}
+                onClick={() => {
+                  toggleAction(img.largeImageURL);
+                }}
+              >
+                <FavoriteIcon />
+              </IconButton>
+            ) : (
+              <IconButton
+                style={{
+                  color: "white",
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  zIndex: "1",
+                }}
+                onClick={() => {
+                  toggleAction(img.largeImageURL);
+                }}
+              >
+                <FavoriteBorderIcon />
+              </IconButton>
+            )}
             <ImageListItemBar
               title={img.tags}
               actionIcon={
